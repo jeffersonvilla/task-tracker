@@ -15,7 +15,15 @@ import online.jeffdev.model.Task;
 
 public class JsonFilePersistence implements Persistence {
 
-    private static final String FILE_NAME = "tasks.json";
+    private final String fileName;
+
+    public JsonFilePersistence() {
+        this.fileName = "tasks.json";
+    }
+
+    public JsonFilePersistence(String fileName) {
+        this.fileName = fileName;
+    }
 
     @Override
     public Task addNewTask(Task task) {
@@ -35,7 +43,7 @@ public class JsonFilePersistence implements Persistence {
 
     private List<Task> loadTasks() {
         List<Task> tasks = new ArrayList<>();
-        Path path = Paths.get(FILE_NAME);
+        Path path = Paths.get(fileName);
 
         if (!Files.exists(path)) {
             return tasks;
@@ -93,7 +101,7 @@ public class JsonFilePersistence implements Persistence {
         sb.append("]");
 
         try {
-            Files.writeString(Paths.get(FILE_NAME), sb.toString());
+            Files.writeString(Paths.get(fileName), sb.toString());
         } catch (IOException e) {
             SupportLogger.logError("Error saving tasks file", e);
         }
