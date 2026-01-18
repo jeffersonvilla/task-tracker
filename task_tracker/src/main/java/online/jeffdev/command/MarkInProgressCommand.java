@@ -3,34 +3,33 @@ package online.jeffdev.command;
 import online.jeffdev.model.Status;
 import online.jeffdev.model.Task;
 import online.jeffdev.persistence.Persistence;
+import online.jeffdev.ui.UserInterface;
 
 import java.time.Instant;
 
 public class MarkInProgressCommand implements Command {
     private final Persistence persistence;
+    private final UserInterface ui;
 
-    public MarkInProgressCommand(Persistence persistence) {
+    public MarkInProgressCommand(Persistence persistence, UserInterface ui) {
         this.persistence = persistence;
+        this.ui = ui;
     }
 
     @Override
     public void execute(String[] args) {
         if (args == null || args.length == 0) {
-            System.out.println("Error: Task ID is required.");
+            ui.displayError("Error: Task ID is required.");
             return;
         }
         String idStr = args[0];
-        if (idStr == null) {
-            System.out.println("Error: Task ID is required.");
-            return;
-        }
 
         try {
             int id = Integer.parseInt(idStr);
             Task task = persistence.getTaskById(id);
 
             if (task == null) {
-                System.out.println("Error: Task with ID " + id + " not found.");
+                ui.displayError("Error: Task with ID " + id + " not found.");
                 return;
             }
 
@@ -38,9 +37,9 @@ public class MarkInProgressCommand implements Command {
             task.setUpdatedAt(Instant.now());
             persistence.updateTask(task);
 
-            System.out.println("Task marked as in progress successfully (ID: " + id + ")");
+            ui.displayMessage("Task marked as in progress successfully (ID: " + id + ")");
         } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid Task ID format.");
+            ui.displayError("Error: Invalid Task ID format.");
         }
     }
 }

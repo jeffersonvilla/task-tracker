@@ -3,6 +3,7 @@ package online.jeffdev.command;
 import online.jeffdev.model.Status;
 import online.jeffdev.model.Task;
 import online.jeffdev.persistence.Persistence;
+import online.jeffdev.ui.UserInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,12 +13,14 @@ import static org.mockito.Mockito.*;
 class MarkInProgressCommandTest {
 
     private Persistence persistence;
+    private UserInterface ui;
     private MarkInProgressCommand command;
 
     @BeforeEach
     void setUp() {
         persistence = mock(Persistence.class);
-        command = new MarkInProgressCommand(persistence);
+        ui = mock(UserInterface.class);
+        command = new MarkInProgressCommand(persistence, ui);
     }
 
     @Test

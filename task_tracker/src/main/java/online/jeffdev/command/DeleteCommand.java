@@ -2,18 +2,21 @@ package online.jeffdev.command;
 
 import online.jeffdev.model.Task;
 import online.jeffdev.persistence.Persistence;
+import online.jeffdev.ui.UserInterface;
 
 public class DeleteCommand implements Command {
     private final Persistence persistence;
+    private final UserInterface ui;
 
-    public DeleteCommand(Persistence persistence) {
+    public DeleteCommand(Persistence persistence, UserInterface ui) {
         this.persistence = persistence;
+        this.ui = ui;
     }
 
     @Override
     public void execute(String[] args) {
         if (args == null || args.length == 0) {
-            System.out.println("Error: Task ID is required.");
+            ui.displayError("Error: Task ID is required.");
             return;
         }
 
@@ -22,14 +25,14 @@ public class DeleteCommand implements Command {
             Task task = persistence.getTaskById(id);
 
             if (task == null) {
-                System.out.println("Error: Task with ID " + id + " not found.");
+                ui.displayError("Error: Task with ID " + id + " not found.");
                 return;
             }
 
             persistence.deleteTask(id);
-            System.out.println("Task deleted successfully (ID: " + id + ")");
+            ui.displayMessage("Task deleted successfully (ID: " + id + ")");
         } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid Task ID format.");
+            ui.displayError("Error: Invalid Task ID format.");
         }
     }
 }

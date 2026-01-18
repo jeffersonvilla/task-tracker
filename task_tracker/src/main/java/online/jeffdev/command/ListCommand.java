@@ -2,17 +2,18 @@ package online.jeffdev.command;
 
 import online.jeffdev.model.Status;
 import online.jeffdev.model.Task;
-
 import online.jeffdev.persistence.Persistence;
-import online.jeffdev.util.TaskFormatter;
+import online.jeffdev.ui.UserInterface;
 
 import java.util.List;
 
 public class ListCommand implements Command {
     private final Persistence persistence;
+    private final UserInterface ui;
 
-    public ListCommand(Persistence persistence) {
+    public ListCommand(Persistence persistence, UserInterface ui) {
         this.persistence = persistence;
+        this.ui = ui;
     }
 
     @Override
@@ -27,15 +28,15 @@ public class ListCommand implements Command {
                         .filter(task -> task.getStatus() == statusFilter)
                         .toList();
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid status filter: " + filter);
+                ui.displayError("Invalid status filter: " + filter);
                 return;
             }
         }
 
         if (tasks.isEmpty()) {
-            System.out.println("No tasks found.");
+            ui.displayMessage("No tasks found.");
         } else {
-            TaskFormatter.printTable(tasks);
+            ui.displayTasks(tasks);
         }
     }
 }

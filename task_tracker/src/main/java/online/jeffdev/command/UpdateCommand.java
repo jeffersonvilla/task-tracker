@@ -2,21 +2,24 @@ package online.jeffdev.command;
 
 import online.jeffdev.model.Task;
 import online.jeffdev.persistence.Persistence;
+import online.jeffdev.ui.UserInterface;
 
 import java.time.Instant;
 
 public class UpdateCommand implements Command {
     private final Persistence persistence;
+    private final UserInterface ui;
 
-    public UpdateCommand(Persistence persistence) {
+    public UpdateCommand(Persistence persistence, UserInterface ui) {
         this.persistence = persistence;
+        this.ui = ui;
     }
 
     @Override
     public void execute(String[] args) {
         if (args == null || args.length < 2) {
-            System.out.println("Error: Task ID and new description are required.");
-            System.out.println("Usage: update <id> <description>");
+            ui.displayError("Error: Task ID and new description are required.");
+            ui.displayMessage("Usage: update <id> <description>");
             return;
         }
 
@@ -26,7 +29,7 @@ public class UpdateCommand implements Command {
 
             Task task = persistence.getTaskById(id);
             if (task == null) {
-                System.out.println("Error: Task with ID " + id + " not found.");
+                ui.displayError("Error: Task with ID " + id + " not found.");
                 return;
             }
 
@@ -34,9 +37,9 @@ public class UpdateCommand implements Command {
             task.setUpdatedAt(Instant.now());
             persistence.updateTask(task);
 
-            System.out.println("Task updated successfully (ID: " + id + ")");
+            ui.displayMessage("Task updated successfully (ID: " + id + ")");
         } catch (NumberFormatException e) {
-            System.out.println("Error: Invalid Task ID format.");
+            ui.displayError("Error: Invalid Task ID format.");
         }
     }
 }

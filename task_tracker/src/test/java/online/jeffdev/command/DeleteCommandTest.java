@@ -2,21 +2,23 @@ package online.jeffdev.command;
 
 import online.jeffdev.model.Task;
 import online.jeffdev.persistence.Persistence;
+import online.jeffdev.ui.UserInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class DeleteCommandTest {
 
     private Persistence persistence;
+    private UserInterface ui;
     private DeleteCommand command;
 
     @BeforeEach
     void setUp() {
         persistence = mock(Persistence.class);
-        command = new DeleteCommand(persistence);
+        ui = mock(UserInterface.class);
+        command = new DeleteCommand(persistence, ui);
     }
 
     @Test

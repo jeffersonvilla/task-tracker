@@ -7,26 +7,33 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import online.jeffdev.ui.ConsoleUI;
+import online.jeffdev.ui.UserInterface;
+
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ListCommandTest {
 
     private final PrintStream standardOut = System.out;
+    private final PrintStream standardErr = System.err;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private ListCommand listCommand;
 
     @BeforeEach
     void setUp() {
-        System.setOut(new PrintStream(outputStreamCaptor));
+        PrintStream captor = new PrintStream(outputStreamCaptor);
+        System.setOut(captor);
+        System.setErr(captor);
         // Inject dedicated persistence for testing
         JsonFilePersistence persistence = new JsonFilePersistence();
-        listCommand = new ListCommand(persistence);
+        UserInterface ui = new ConsoleUI();
+        listCommand = new ListCommand(persistence, ui);
 
         // Clean up any existing tasks.json before tests
         try {
@@ -38,6 +45,7 @@ class ListCommandTest {
     @AfterEach
     void tearDown() {
         System.setOut(standardOut);
+        System.setErr(standardErr);
         try {
             Files.deleteIfExists(Paths.get("tasks.json"));
         } catch (Exception e) {
