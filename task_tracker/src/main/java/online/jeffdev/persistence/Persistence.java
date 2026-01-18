@@ -13,4 +13,6 @@ public interface Persistence {
     Task getTaskById(int id);
 
     void updateTask(Task task);
+
+    void deleteTask(int id);
 }

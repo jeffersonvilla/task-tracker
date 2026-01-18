@@ -5,7 +5,8 @@ public enum CommandKey {
     LIST("list"),
     MARK_IN_PROGRESS("mark-in-progress"),
     MARK_DONE("mark-done"),
-    UPDATE("update");
+    UPDATE("update"),
+    DELETE("delete");
 
     private final String key;
 

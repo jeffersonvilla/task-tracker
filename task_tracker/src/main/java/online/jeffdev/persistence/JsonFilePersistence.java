@@ -66,6 +66,15 @@ public class JsonFilePersistence implements Persistence {
         }
     }
 
+    @Override
+    public void deleteTask(int id) {
+        List<Task> tasks = loadTasks();
+        boolean removed = tasks.removeIf(task -> task.getId() == id);
+        if (removed) {
+            saveTasks(tasks);
+        }
+    }
+
     private List<Task> loadTasks() {
         List<Task> tasks = new ArrayList<>();
         Path path = Paths.get(fileName);

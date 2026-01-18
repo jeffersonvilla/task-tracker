@@ -7,6 +7,7 @@ import online.jeffdev.command.ListCommand;
 import online.jeffdev.command.MarkInProgressCommand;
 import online.jeffdev.command.MarkDoneCommand;
 import online.jeffdev.command.UpdateCommand;
+import online.jeffdev.command.DeleteCommand;
 
 import online.jeffdev.persistence.JsonFilePersistence;
 import online.jeffdev.persistence.Persistence;
@@ -25,6 +26,7 @@ public class App {
         commands.put(CommandKey.MARK_IN_PROGRESS, new MarkInProgressCommand(persistence));
         commands.put(CommandKey.MARK_DONE, new MarkDoneCommand(persistence));
         commands.put(CommandKey.UPDATE, new UpdateCommand(persistence));
+        commands.put(CommandKey.DELETE, new DeleteCommand(persistence));
     }
 
     public static void main(String[] args) {
