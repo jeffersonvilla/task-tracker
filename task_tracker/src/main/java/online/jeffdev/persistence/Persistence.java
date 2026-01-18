@@ -9,4 +9,8 @@ public interface Persistence {
     Task addNewTask(Task task);
 
     List<Task> getAllTasks();
+
+    Task getTaskById(int id);
+
+    void updateTask(Task task);
 }

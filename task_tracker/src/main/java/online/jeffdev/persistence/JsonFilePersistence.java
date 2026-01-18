@@ -46,6 +46,26 @@ public class JsonFilePersistence implements Persistence {
         return loadTasks();
     }
 
+    @Override
+    public Task getTaskById(int id) {
+        return loadTasks().stream()
+                .filter(task -> task.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public void updateTask(Task task) {
+        List<Task> tasks = loadTasks();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).getId() == task.getId()) {
+                tasks.set(i, task);
+                saveTasks(tasks);
+                return;
+            }
+        }
+    }
+
     private List<Task> loadTasks() {
         List<Task> tasks = new ArrayList<>();
         Path path = Paths.get(fileName);

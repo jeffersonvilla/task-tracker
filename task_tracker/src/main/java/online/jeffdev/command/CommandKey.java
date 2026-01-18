@@ -2,7 +2,9 @@ package online.jeffdev.command;
 
 public enum CommandKey {
     ADD("add"),
-    LIST("list");
+    LIST("list"),
+    MARK_IN_PROGRESS("mark-in-progress"),
+    MARK_DONE("mark-done");
 
     private final String key;
 

@@ -48,4 +48,33 @@ class JsonFilePersistenceTest {
 
         assertEquals(2, task2.getId(), "Should resume ID from existing file");
     }
+
+    @Test
+    void testGetTaskById() {
+        Path tempFile = tempDir.resolve("tasks-get.json");
+        JsonFilePersistence persistence = new JsonFilePersistence(tempFile.toString());
+
+        Task task = new Task("Test getTaskById");
+        persistence.addNewTask(task);
+
+        Task found = persistence.getTaskById(task.getId());
+        assertNotNull(found);
+        assertEquals(task.getDescription(), found.getDescription());
+    }
+
+    @Test
+    void testUpdateTask() {
+        Path tempFile = tempDir.resolve("tasks-update.json");
+        JsonFilePersistence persistence = new JsonFilePersistence(tempFile.toString());
+
+        Task task = new Task("Original Description");
+        persistence.addNewTask(task);
+
+        task.setDescription("Updated Description");
+        persistence.updateTask(task);
+
+        Task updated = persistence.getTaskById(task.getId());
+        assertNotNull(updated);
+        assertEquals("Updated Description", updated.getDescription());
+    }
 }
