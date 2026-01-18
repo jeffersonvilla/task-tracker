@@ -5,7 +5,6 @@ import online.jeffdev.model.Task;
 import online.jeffdev.persistence.Persistence;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -27,14 +26,14 @@ class MarkInProgressCommandTest {
         task.setId(1);
         when(persistence.getTaskById(1)).thenReturn(task);
 
-        command.execute("1");
+        command.execute(new String[] { "1" });
 
         verify(persistence).updateTask(argThat(t -> t.getId() == 1 && t.getStatus() == Status.IN_PROGRESS));
     }
 
     @Test
     void testExecute_InvalidIdFormat() {
-        command.execute("abc");
+        command.execute(new String[] { "abc" });
         verify(persistence, never()).updateTask(any());
     }
 
@@ -42,7 +41,7 @@ class MarkInProgressCommandTest {
     void testExecute_TaskNotFound() {
         when(persistence.getTaskById(1)).thenReturn(null);
 
-        command.execute("1");
+        command.execute(new String[] { "1" });
 
         verify(persistence, never()).updateTask(any());
     }

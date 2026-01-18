@@ -56,7 +56,7 @@ class ListCommandTest {
         addTestTask("Task 1", Status.TODO);
         addTestTask("Task 2", Status.DONE);
 
-        listCommand.execute(null);
+        listCommand.execute(new String[0]);
 
         String output = outputStreamCaptor.toString();
         assertTrue(output.contains("Task 1"));
@@ -68,7 +68,7 @@ class ListCommandTest {
         addTestTask("Task 1", Status.TODO);
         addTestTask("Task 2", Status.DONE);
 
-        listCommand.execute("done");
+        listCommand.execute(new String[] { "done" });
 
         String output = outputStreamCaptor.toString();
         assertTrue(output.contains("Task 2"));
@@ -77,13 +77,13 @@ class ListCommandTest {
 
     @Test
     void testEmptyList() {
-        listCommand.execute(null);
+        listCommand.execute(new String[0]);
         assertTrue(outputStreamCaptor.toString().trim().contains("No tasks found."));
     }
 
     @Test
     void testInvalidFilter() {
-        listCommand.execute("invalid");
+        listCommand.execute(new String[] { "invalid" });
         assertTrue(outputStreamCaptor.toString().contains("Invalid status filter"));
     }
 }

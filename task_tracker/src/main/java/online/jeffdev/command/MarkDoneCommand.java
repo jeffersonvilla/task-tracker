@@ -14,7 +14,12 @@ public class MarkDoneCommand implements Command {
     }
 
     @Override
-    public void execute(String idStr) {
+    public void execute(String[] args) {
+        if (args == null || args.length == 0) {
+            System.out.println("Error: Task ID is required.");
+            return;
+        }
+        String idStr = args[0];
         if (idStr == null) {
             System.out.println("Error: Task ID is required.");
             return;
