@@ -1,7 +1,8 @@
 package online.jeffdev.command;
 
 public enum CommandKey {
-    ADD("add");
+    ADD("add"),
+    LIST("list");
 
     private final String key;
 

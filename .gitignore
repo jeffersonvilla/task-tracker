@@ -1,3 +1,4 @@
 .vscode/
 task_tracker/target/
 task_tracker/tasks.json
+task_tracker/test_output.txt
