@@ -1,11 +1,18 @@
 package online.jeffdev;
 
+import online.jeffdev.command.Command;
+import online.jeffdev.command.CommandKey;
+import online.jeffdev.command.AddCommand;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class App {
 
-    private static final java.util.Map<String, online.jeffdev.command.Command> commands = new java.util.HashMap<>();
+    private static final Map<CommandKey, Command> commands = new HashMap<>();
 
     static {
-        commands.put("add", new online.jeffdev.command.AddCommand());
+        commands.put(CommandKey.ADD, new AddCommand());
     }
 
     public static void main(String[] args) {
@@ -13,7 +20,8 @@ public class App {
             String action = args[0];
             String info = args[1];
 
-            online.jeffdev.command.Command command = commands.get(action);
+            CommandKey key = CommandKey.fromKey(action);
+            Command command = commands.get(key);
             if (command != null) {
                 command.execute(info);
             } else {
