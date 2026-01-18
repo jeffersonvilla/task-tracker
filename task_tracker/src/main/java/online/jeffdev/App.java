@@ -5,7 +5,6 @@ import online.jeffdev.command.CommandKey;
 import online.jeffdev.command.AddCommand;
 import online.jeffdev.command.ListCommand;
 
-import online.jeffdev.persistence.CliLogger;
 import online.jeffdev.persistence.JsonFilePersistence;
 import online.jeffdev.persistence.Persistence;
 
@@ -32,7 +31,7 @@ public class App {
             if (command != null) {
                 command.execute(info);
             } else {
-                CliLogger.info("Wrong command");
+                System.out.println("Wrong command");
             }
         }
 

@@ -1,7 +1,7 @@
 package online.jeffdev.command;
 
 import online.jeffdev.model.Task;
-import online.jeffdev.persistence.CliLogger;
+
 import online.jeffdev.persistence.Persistence;
 
 public class AddCommand implements Command {
@@ -14,6 +14,6 @@ public class AddCommand implements Command {
     @Override
     public void execute(String description) {
         Task taskCreated = persistence.addNewTask(new Task(description));
-        CliLogger.info("Task added succesfully (ID: " + taskCreated.getId() + ")");
+        System.out.println("Task added succesfully (ID: " + taskCreated.getId() + ")");
     }
 }

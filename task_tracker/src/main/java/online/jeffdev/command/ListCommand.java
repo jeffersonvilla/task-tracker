@@ -2,7 +2,7 @@ package online.jeffdev.command;
 
 import online.jeffdev.model.Status;
 import online.jeffdev.model.Task;
-import online.jeffdev.persistence.CliLogger;
+
 import online.jeffdev.persistence.Persistence;
 
 import java.util.List;
@@ -25,15 +25,15 @@ public class ListCommand implements Command {
                         .filter(task -> task.getStatus() == statusFilter)
                         .toList();
             } catch (IllegalArgumentException e) {
-                CliLogger.info("Invalid status filter: " + filter);
+                System.out.println("Invalid status filter: " + filter);
                 return;
             }
         }
 
         if (tasks.isEmpty()) {
-            CliLogger.info("No tasks found.");
+            System.out.println("No tasks found.");
         } else {
-            tasks.forEach(task -> CliLogger.info(task.toString()));
+            tasks.forEach(task -> System.out.println(task.toString()));
         }
     }
 }
