@@ -10,8 +10,8 @@ public class Task {
     private Instant createdAt;
     private Instant updatedAt;
 
-    public Task(String decription) {
-        this.description = decription;
+    public Task(String description) {
+        this.description = description;
         this.status = Status.TODO;
         this.createdAt = Instant.now();
         this.updatedAt = Instant.now();
@@ -59,7 +59,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task [id=" + id + ", decription=" + description + ", status=" + status + ", createdAt=" + createdAt
+        return "Task [id=" + id + ", description=" + description + ", status=" + status + ", createdAt=" + createdAt
                 + ", updatedAt=" + updatedAt + "]";
     }
 

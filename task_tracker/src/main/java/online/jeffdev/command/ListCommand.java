@@ -4,6 +4,7 @@ import online.jeffdev.model.Status;
 import online.jeffdev.model.Task;
 
 import online.jeffdev.persistence.Persistence;
+import online.jeffdev.util.TaskFormatter;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ListCommand implements Command {
         if (tasks.isEmpty()) {
             System.out.println("No tasks found.");
         } else {
-            tasks.forEach(task -> System.out.println(task.toString()));
+            TaskFormatter.printTable(tasks);
         }
     }
 }
